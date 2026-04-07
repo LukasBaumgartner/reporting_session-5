@@ -32,6 +32,10 @@ class PokerHand:
         return True
 
     @property
+    def is_straight_flush(self):
+        return self.is_flush and self.is_straight
+
+    @property
     def num_matches(self):
         count = 0
         for i in range(5):
