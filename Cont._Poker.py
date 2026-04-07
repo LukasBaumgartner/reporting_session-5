@@ -102,7 +102,7 @@ while True:
         break
 
 tries = 0
-total_hits = 1000
+total_hits = 500
 hits = 0
 while True:
     hand = PokerHand()
@@ -114,7 +114,7 @@ while True:
         break
 
 tries = 0
-total_hits = 1000
+total_hits = 100
 hits = 0
 while True:
     hand = PokerHand()
@@ -126,7 +126,7 @@ while True:
         break
 
 tries = 0
-total_hits = 1000
+total_hits = 25
 hits = 0
 while True:
     hand = PokerHand()
