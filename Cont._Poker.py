@@ -27,6 +27,8 @@ class PokerHand:
         for card in self._cards[1:]:
             if self._cards[0].suit != card.suit:
                 return False
+        if self.is_straight:
+            return False
         return True
 
     @property
