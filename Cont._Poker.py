@@ -70,6 +70,9 @@ def is_straight(self):
     last_card_index = PlayingCard.RANKS.index(cards[-1].rank)
     if first_card_index +4 == last_card_index:
         return True
+    # Bicycle
+    if cards[-1].rank == "A" and cards[-2].rank == "5":
+        return True
     return False
 
 def __str__(self):
@@ -102,9 +105,19 @@ while True:
         print(f"probability of a full house is {hits / tries * 100}%")
         break
 
+tries = 0
+total_hits = 1000
+hits = 0
+while True:
+    hand = PokerHand()
+    tries += 1
+    if hand.is_straight:
+        hits = hits + 1
+    if hits == total_hits:
+        print(f"probability of a straight is {hits / tries * 100}%")
+        break
+
 
 hand = PokerHand()
 print(hand)
-cards = list(hand.cards)
-cards.sort()
-print(cards)
+
