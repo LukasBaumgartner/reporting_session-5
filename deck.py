@@ -23,9 +23,11 @@ class PlayingCard:
     def rank(self):
         return self._rank
 
+    def __gt__(self, other):
+        return PlayingCard.RANKS.index(self.rank)>PlayingCard.RANKS.index(other.rank)
+
     def __str__(self):
         return f"{self.rank}{self.suit}"  # so I can print the card
-
     def __repr__(self):
         return self.__str__()
 
