@@ -8,11 +8,11 @@ class PokerHand:
         """
         Create a brand-new Deck, shuffle it and deal 5 cards!
         """
-        deck = Deck() #Create a new deck
-        deck.shuffle() #Shuffle the deck
-        self._cards = [] #Create an empty hand
-        for _ in range(5): #We deal 5 cards!
-            self._cards.append(deck.deal()) # Add a card to the hand, until 5
+        deck = Deck()  # Create a new deck
+        deck.shuffle()  # Shuffle the deck
+        self._cards = []  # Create an empty hand
+        for _ in range(5):  # We deal 5 cards!
+            self._cards.append(deck.deal())  # Add a card to the hand, until 5
 
     @property
     def cards(self):
@@ -34,6 +34,10 @@ class PokerHand:
     @property
     def is_straight_flush(self):
         return self.is_flush and self.is_straight
+
+    @property
+    def is_normal_flush(self):
+        return self.is_flush and not self.is_straight
 
     @property
     def num_matches(self):
@@ -66,25 +70,23 @@ class PokerHand:
     def is_4_kind(self):
         return self.num_matches == 12
 
-@property
-def is_straight(self):
-    if self.num_matches != 0:
+    @property
+    def is_straight(self):
+        if self.num_matches != 0:
+            return False
+        cards = list(self._cards)
+        cards.sort(key=lambda card: PlayingCard.RANKS.index(card.rank))
+        first_card_index = PlayingCard.RANKS.index(cards[0].rank)
+        last_card_index = PlayingCard.RANKS.index(cards[-1].rank)
+        if first_card_index + 4 == last_card_index:
+            return True
+        # Bicycle
+        if cards[-1].rank == "A" and cards[-2].rank == "5":
+            return True
         return False
-    cards = list(self._cards)
-    cards.sort()
-    first_card_index = PlayingCard.RANKS.index(cards[0].rank)
-    last_card_index = PlayingCard.RANKS.index(cards[-1].rank)
-    if first_card_index +4 == last_card_index:
-        return True
-    # Bicycle
-    if cards[-1].rank == "A" and cards[-2].rank == "5":
-        return True
-    return False
 
-def __str__(self):
-    return str(self.cards)
-
-
+    def __str__(self):
+        return str(self.cards)
 
 
 tries = 0
@@ -96,7 +98,7 @@ while True:
     if hand.is_flush:
         hits = hits + 1
     if hits == total_hits:
-        print(f"probability of a flush is {hits/tries*100}%")
+        print(f"probability of a flush is {hits / tries * 100}%")
         break
 
 tries = 0
@@ -123,7 +125,17 @@ while True:
         print(f"probability of a straight is {hits / tries * 100}%")
         break
 
+tries = 0
+total_hits = 1000
+hits = 0
+while True:
+    hand = PokerHand()
+    tries += 1
+    if hand.is_straight_flush:
+        hits = hits + 1
+    if hits == total_hits:
+        print(f"probability of a straight flush is {hits / tries * 100}%")
+        break
 
 hand = PokerHand()
 print(hand)
-
